@@ -50,7 +50,7 @@ namespace TagList.ViewModels
 
         private void InitMessagingCenter()
         {
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, MessagingCenterCommands.ADD_ITEM, async (obj, item) =>
+            MessagingCenter.Subscribe<NewItemViewModel, Item>(this, MessagingCenterCommands.ADD_ITEM, async (obj, item) =>
             {
                 var newItem = item as Item;
                 Items.Add(newItem);

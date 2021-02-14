@@ -10,7 +10,31 @@ namespace TagList.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
+        private string _title;
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                SetProperty(ref _title, value);
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                SetProperty(ref _description, value);
+            }
+        }
 
         public Command ClearCommand { get; set; }
         public Command SaveCommand { get; set; }
@@ -20,17 +44,30 @@ namespace TagList.ViewModels
             ClearCommand = new Command(async () => await ExecuteClearCommand());
             SaveCommand = new Command(async () => await ExecuteSaveCommand());
 
-            Item = new Item();
+            Clear();
         }
 
         private async Task ExecuteClearCommand()
         {
-            Item = new Item();
+            Clear();
         }
         private async Task ExecuteSaveCommand()
         {
-            MessagingCenter.Send(this, MessagingCenterCommands.ADD_ITEM, Item);
+            var item = new Item()
+            {
+                Text = Title,
+                Description = Description
+            };
 
+            MessagingCenter.Send(this, MessagingCenterCommands.ADD_ITEM, item);
+
+            Clear();
+        }
+
+        private void Clear()
+        {
+            Description = null;
+            Title = null;
         }
     }
 }
