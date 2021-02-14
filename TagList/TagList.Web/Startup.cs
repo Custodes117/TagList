@@ -24,7 +24,7 @@ namespace TagList.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IItemRepository, ItemRepo sitory>();
+            services.AddSingleton<IItemRepository, ItemRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
