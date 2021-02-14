@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using TagList.Models;
 using TagList.Views;
+using TagList.Services;
 
 namespace TagList.ViewModels
 {
@@ -21,12 +22,7 @@ namespace TagList.ViewModels
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
+            InitMessagingCenter();
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -50,6 +46,16 @@ namespace TagList.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void InitMessagingCenter()
+        {
+            MessagingCenter.Subscribe<NewItemPage, Item>(this, MessagingCenterCommands.ADD_ITEM, async (obj, item) =>
+            {
+                var newItem = item as Item;
+                Items.Add(newItem);
+                await DataStore.AddItemAsync(newItem);
+            });
         }
     }
 }

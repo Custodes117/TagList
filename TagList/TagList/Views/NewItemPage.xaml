@@ -6,12 +6,12 @@
              mc:Ignorable="d"
              x:Class="TagList.Views.NewItemPage"
              Title="New Item">
-    
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem Text="Cancel" Command="{Binding SaveCommand}"/>
+        <ToolbarItem Text="Save" Command="{Binding ClearCommand}" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Text" FontSize="Medium" />
@@ -19,6 +19,6 @@
             <Label Text="Description" FontSize="Medium" />
             <Editor Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" Margin="0" />
         </StackLayout>
-    </ContentPage.Content>
-    
+    </ContentPage.Content>  
+
 </ContentPage>
